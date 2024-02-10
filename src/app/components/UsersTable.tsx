@@ -12,13 +12,14 @@ import {
 import AddUserButton from "./AddUsersButton";
 import RemoveUserButton from "./RemoveUserButton";
 import { Users } from "@/api/types";
+import { CircularProgress } from "@mui/material";
 
 // Todo - enable multiple sorts - implement custom sorting prior to passing users into DataGrid (or upgrade to data-grid pro!)
 // Todo - optimise bundle size - assess DataGrid options / imports or build custom Table implementation
 
 export default function UsersTable({ users: initialUsers }: { users: Users }) {
   const [users, setUsers] = useState(initialUsers);
-  const [userCount, setUserCount] = useState(initialUsers.length);
+  const [userCount, setUserCount] = useState<number | null>(null);
   const apiRef = useGridApiRef();
 
   const columns: GridColDef[] = [
@@ -64,10 +65,16 @@ export default function UsersTable({ users: initialUsers }: { users: Users }) {
         apiRef={apiRef}
       />
       {/* Todo - Add pagination controls to account for DataGrid 100 row page size */}
-      <div className="mt-4 text-sm">
-        <span>Number of users:</span>
-        <span className="ml-1">{userCount}</span>
-      </div>
+      {typeof userCount === "number" ? (
+        <div className="mt-4 text-sm">
+          <span>Number of users:</span>
+          <span className="ml-1">{userCount}</span>
+        </div>
+      ) : (
+        <div className="flex justify-center items-center">
+          <CircularProgress />
+        </div>
+      )}
     </div>
   );
 }
