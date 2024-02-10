@@ -35,6 +35,7 @@ function AddUserButton({ setUsers }: IAddUserButton) {
           "&:hover": {
             backgroundColor: "rgba(0, 0, 0, 0.04)",
           },
+          borderTop: "1px solid #e5e7eb",
         }}
       >
         Add User

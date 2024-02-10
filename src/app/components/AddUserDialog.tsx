@@ -44,7 +44,7 @@ const AddUserDialog: React.FC<AddUserDialogProps> = ({
       <DialogTitle>Add New User</DialogTitle>
       <DialogContent>
         <TextField
-          autoFocus // Todo - fix
+          autoFocus // Todo - Fix - if not working, develop custom useEffect implementation
           margin="dense"
           id="name"
           label="Name"
