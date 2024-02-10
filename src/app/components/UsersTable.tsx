@@ -3,13 +3,7 @@
 import { useState } from "react";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import AddUserButton from "./AddUsersButton";
-
-const columns: GridColDef[] = [
-  { field: "name", headerName: "Name", flex: 1 },
-  { field: "email", headerName: "Email", flex: 1 },
-  { field: "company", headerName: "Company", flex: 1 },
-  { field: "added", headerName: "Added", flex: 1 },
-];
+import RemoveUserButton from "./RemoveUserButton";
 
 const rows = [
   {
@@ -82,6 +76,23 @@ const rows = [
 
 export default function DataTable() {
   const [users, setUsers] = useState(rows);
+
+  const columns: GridColDef[] = [
+    { field: "name", headerName: "Name", flex: 1 },
+    { field: "email", headerName: "Email", flex: 1 },
+    { field: "company", headerName: "Company", flex: 1 },
+    { field: "added", headerName: "Added", flex: 1 },
+    {
+      field: "actions",
+      headerName: "",
+      width: 50,
+      renderCell: (params) => {
+        return <RemoveUserButton id={params.row.id} setUsers={setUsers} />; // Todo - use Context for users so I can access setUsers
+      },
+      sortable: false,
+      filterable: false,
+    },
+  ];
 
   return (
     <div style={{ height: 400, width: "100%" }}>
