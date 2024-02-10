@@ -2,6 +2,7 @@ import React from "react";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Dispatch, SetStateAction } from "react";
+import { removeUser } from "@/api/users";
 
 interface RemoveUserButtonProps {
   id: number;
@@ -14,6 +15,7 @@ const RemoveUserButton: React.FC<RemoveUserButtonProps> = ({
 }) => {
   const handleRemoveUser = () => {
     setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    removeUser(id);
   };
 
   return (

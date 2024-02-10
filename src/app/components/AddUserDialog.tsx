@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { Users } from "@/api/types";
 import { Dispatch, SetStateAction } from "react";
+import { addUser } from "@/api/users";
 
 interface AddUserDialogProps {
   open: boolean;
@@ -36,6 +37,8 @@ const AddUserDialog: React.FC<AddUserDialogProps> = ({
     }; // Todo - Use a more robust uuid lib for id
     // Todo - Store 'added' as a numerical value for greater precision (Date.now())
     setUsers((prev) => [...prev, newUser]);
+    addUser(newUser);
+    // Todo - Error handling
     onClose();
   };
 

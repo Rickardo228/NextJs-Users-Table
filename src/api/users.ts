@@ -1,3 +1,4 @@
+"use server";
 import { Users, User } from "./types";
 
 export const getUsers = async (): Promise<Users> => {
@@ -21,7 +22,7 @@ export const addUser = async (user: User): Promise<void> => {
   return;
 };
 
-export const removeUser = async (): Promise<void> => {
+export const removeUser = async (userId: number): Promise<void> => {
   "use server";
   // Todo - Make API call
   return;
