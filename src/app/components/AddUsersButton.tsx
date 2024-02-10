@@ -29,7 +29,7 @@ function AddUserButton({ setUsers }: IAddUserButton) {
         onClick={handleClickOpen}
         sx={{
           justifyContent: "start",
-          color: "inherit",
+          //   color: "inherit",
           textTransform: "none",
           width: "100%",
           "&:hover": {

@@ -1,7 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
+import { useEffect, useState } from "react";
+import {
+  DataGrid,
+  GridColDef,
+  GridToolbar,
+  gridExpandedRowCountSelector,
+  gridFilteredSortedRowIdsSelector,
+  useGridApiRef,
+} from "@mui/x-data-grid";
 import AddUserButton from "./AddUsersButton";
 import RemoveUserButton from "./RemoveUserButton";
 import { Users } from "@/api/types";
@@ -11,6 +18,8 @@ import { Users } from "@/api/types";
 
 export default function UsersTable({ users: initialUsers }: { users: Users }) {
   const [users, setUsers] = useState(initialUsers);
+  const [userCount, setUserCount] = useState(initialUsers.length);
+  const apiRef = useGridApiRef();
 
   const columns: GridColDef[] = [
     { field: "name", headerName: "Name", flex: 1 },
@@ -30,7 +39,7 @@ export default function UsersTable({ users: initialUsers }: { users: Users }) {
   ];
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div className="h-[400px] w-full">
       <DataGrid
         rows={users}
         columns={columns}
@@ -38,6 +47,9 @@ export default function UsersTable({ users: initialUsers }: { users: Users }) {
           pagination: {
             paginationModel: { page: 0, pageSize: 100 },
           },
+        }}
+        onStateChange={() => {
+          setUserCount(gridExpandedRowCountSelector(apiRef)); // Todo - Potential optimisation - move setUserCount into a subcomponent to prevent re-rendering the entire table
         }}
         disableDensitySelector={true}
         disableColumnSelector={true}
@@ -49,8 +61,13 @@ export default function UsersTable({ users: initialUsers }: { users: Users }) {
         slotProps={{
           footer: { setUsers } as any, // Todo - use Context (or somehow extend the footer props type) to avoid this assertion
         }}
+        apiRef={apiRef}
       />
       {/* Todo - Add pagination controls to account for DataGrid 100 row page size */}
+      <div className="mt-4 text-sm">
+        <span>Number of users:</span>
+        <span className="ml-1">{userCount}</span>
+      </div>
     </div>
   );
 }
