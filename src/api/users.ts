@@ -9,7 +9,7 @@ export const getUsers = async (): Promise<Users> => {
   // Assign a unique id to each user as original data doesn't include one
   const usersWithId = users.map((user, index) => ({
     ...user,
-    id: index, // Todo - consider a more robust approach / store id with json
+    id: index, // Todo - consider a more robust approach / store id in original JSON
   }));
 
   return usersWithId;
