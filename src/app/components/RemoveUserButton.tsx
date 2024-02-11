@@ -19,7 +19,7 @@ const RemoveUserButton: React.FC<RemoveUserButtonProps> = ({
   };
 
   return (
-    // Todo - Dialog UI to confirm deletion
+    // Todo -  Dialog UI to confirm deletion
     <IconButton onClick={handleRemoveUser} size="small">
       <DeleteIcon fontSize="small" className="text-gray-500" />
     </IconButton>
